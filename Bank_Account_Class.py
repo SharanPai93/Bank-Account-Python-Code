@@ -17,7 +17,10 @@ class BankAccount:
         print(f"\nDetails for \"{self._accountName}\" are specified below:\n")
         print(f"Registered name: {self._name}")
         print(f"Registered age: {self._age}")
-        print(f"Current money stored in bank: {self._currentMoney}")
+        if self._currentMoney < 0:
+            print(f"You are {self._currentMoney} USD in debt.")
+        else:
+            print(f"Current money stored in bank: {self._currentMoney}")
         print(f"Current credit score: {self.creditScore}\n")
 
     def depositMoney(self, amount:float) -> None:
@@ -25,7 +28,7 @@ class BankAccount:
 Procedure is starting now.")
         self._currentMoney += round(amount,2)
         print(f"You now have {self._currentMoney} stored in this account.\n")
-        self.creditScore += round(0.25*amount,2)
+        self.creditScore += round(0.3*amount,2)
         mTime = time.strftime('%I:%M, %D')
         self.history.append(f'{self.countHistory}.\nDate: {mTime}\n\
 Task: Deposited {amount} USD into this bank.\n')
@@ -36,7 +39,10 @@ Task: Deposited {amount} USD into this bank.\n')
             print(f"You have chosen to withdraw {amount} USD from this bank.\n\
     Procedure is starting now.")
             self._currentMoney -= round(amount,2)
-            print(f"You now have {self._currentMoney} left in this account.\n")
+            if self._currentMoney < 0:
+                print(f"You are now {self._currentMoney} USD in debt.")
+            else:
+                print(f"You now have {self._currentMoney} left in this account.\n")
             self.creditScore -= round(0.25*amount,2)
             if self.creditScore < 0: self.creditScore = 0
             mTime = time.strftime('%I:%M, %D')
